@@ -1,6 +1,6 @@
 ---
 title: "SMPA - Grouping Assignment"
-author: "YourNameHere"
+author: "Samiha Farooqi"
 date: "`r format(Sys.time(), '%B %d, %Y')`"
 format:
   html:
@@ -61,11 +61,11 @@ Take a moment to look at the various categories included for each disbursement.
 
 Without doing any analysis yet, what are three questions you might try to answer using this dataset? Write your narrative answers in the spaces below.
 
-1.  
+1.  What is the most common type of payment/purchase the Trump campaign made?
 
-2.  
+2.  How often did they pay for legal consultations? (would need datasets of other candidates to see if that is comparatively above or below average)
 
-3.  
+3.  Were the entity recipients more often individuals or organizations?
 
 ## Coding Assignment Questions
 
@@ -81,7 +81,9 @@ How much was spent in the 2017 vs. 2018 reporting year?
 
 ```{r}
 
-
+payments %>% 
+  group_by(report_year) %>% 
+  summarise(sum(disbursement_amount, na.rm = TRUE))
 
 
 
@@ -93,9 +95,10 @@ Tally the total overall disbursement amounts for each month (distinguishing betw
 
 ```{r}
 
-
-
-
+payments %>% 
+  group_by(disbursement_year, disbursement_month) %>% 
+  summarise(sum = sum(disbursement_amount, na.rm = TRUE)) %>% 
+  arrange(desc(sum))
 
 
 ```
