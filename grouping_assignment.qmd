@@ -107,7 +107,10 @@ Which recipient (recipient_name) was paid the most in the 2020 election cycle?
 
 ```{r}
 
-
+payments %>% 
+  group_by(recipient_name) %>% 
+  summarise(sum = sum(disbursement_amount, na.rm = TRUE)) %>% 
+  arrange(desc(sum))
 
 
 
@@ -119,7 +122,11 @@ Look at what this recipient was paid for. What service or good (see the "disburs
 
 ```{r}
 
-
+payments %>% 
+  filter(recipient_name == "AMERICAN MADE MEDIA CONSULTANTS, LLC") %>% 
+  group_by(disbursement_description) %>% 
+  summarise(sum = sum(disbursement_amount, na.rm = TRUE)) %>% 
+  arrange(desc(sum))
 
 
 
@@ -130,9 +137,10 @@ What's the most common category overall (see "disbursement_description") the cam
 
 ```{r}
 
-
-
-
+payments %>% 
+  group_by(disbursement_description) %>% 
+  summarise(sum = sum(disbursement_amount, na.rm = TRUE)) %>% 
+  arrange(desc(sum))
 
 
 ```
